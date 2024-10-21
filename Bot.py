@@ -1,15 +1,9 @@
 import streamlit as st
 import google.generativeai as genai
-import configparser
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
-def get_api_key(config_path='config.ini'):
-    """Reads the API key from a configuration file."""
-    config = configparser.ConfigParser()
-    config.read(config_path)
-    return config['DEFAULT']['API_KEY']
-
-api_key = get_api_key()
+# Access the API key from Streamlit's secrets
+api_key = st.secrets["DEFAULT"]["API_KEY"].strip('"')  # Strip quotes if needed
 
 def extract_subtext(text, start_marker="[[", end_marker="]]"):
     """Extracts a substring between a start and end marker."""
